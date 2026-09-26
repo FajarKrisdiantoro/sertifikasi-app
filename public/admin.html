@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Dashboard admin Portal Sertifikasi." />
+    <title>Dashboard Admin · Portal Sertifikasi</title>
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body class="app-page">
+    <div id="toast-container" class="toast-container" aria-live="polite"></div>
+    <div class="app-shell">
+      <aside class="sidebar" id="sidebar">
+        <div class="sidebar-head">
+          <a class="brand-lockup" href="/admin.html" aria-label="Portal Sertifikasi">
+            <span class="brand-mark">S</span>
+            <span>sertifikasi<span class="brand-dot">.</span></span>
+          </a>
+          <button class="icon-button sidebar-close" id="sidebar-close" aria-label="Tutup menu">×</button>
+        </div>
+        <div class="workspace-chip"><span class="workspace-dot"></span><span>Ruang Admin</span><span class="chip-chevron">⌄</span></div>
+        <p class="nav-label">UTAMA</p>
+        <nav class="side-nav" aria-label="Navigasi admin">
+          <button class="nav-item active" data-view="overview"><span class="nav-icon">⌂</span><span>Overview</span></button>
+          <button class="nav-item" data-view="participants"><span class="nav-icon">♙</span><span>Data Peserta</span><span class="nav-badge" id="participant-nav-count">0</span></button>
+          <button class="nav-item" data-view="schemas"><span class="nav-icon">▦</span><span>Skema Sertifikasi</span></button>
+          <button class="nav-item" data-view="registration"><span class="nav-icon">＋</span><span>Pendaftaran Baru</span></button>
+        </nav>
+        <p class="nav-label nav-label-spaced">SISTEM</p>
+        <nav class="side-nav">
+          <button class="nav-item" data-view="help"><span class="nav-icon">?</span><span>Pusat Bantuan</span></button>
+        </nav>
+        <div class="sidebar-bottom">
+          <div class="sidebar-tip"><span class="tip-icon">✦</span><div><strong>Tips hari ini</strong><p>Pastikan data peserta sudah sesuai dokumen resmi.</p></div></div>
+          <button class="profile-row" id="profile-trigger" type="button" title="Keluar dari akun" aria-label="Keluar dari akun">
+            <span class="profile-avatar" id="profile-avatar">A</span>
+            <span class="profile-copy"><strong id="profile-name">Admin</strong><small id="profile-email">admin@...</small></span>
+            <span class="profile-more">Keluar</span>
+          </button>
+        </div>
+      </aside>
+
+      <div class="main-column">
+        <header class="topbar">
+          <button class="icon-button menu-toggle" id="menu-toggle" aria-label="Buka menu">☰</button>
+          <div class="breadcrumb"><span>Workspace</span><b>/</b><strong id="breadcrumb-current">Overview</strong></div>
+          <div class="topbar-actions">
+            <span class="date-stamp" id="today-label"></span>
+            <button class="icon-button notification-button" aria-label="Notifikasi"><span>♧</span><i></i></button>
+            <div class="topbar-user"><span class="profile-avatar small" id="top-avatar">A</span><span id="top-user-name">Admin</span></div>
+          </div>
+        </header>
+
+        <main class="main-content">
+          <section class="view active" id="view-overview" data-title="Overview">
+            <div class="page-heading heading-with-action">
+              <div><p class="eyebrow">RINGKASAN HARI INI</p><h1>Selamat datang, <span id="heading-name">Admin</span> <span class="wave">✦</span></h1><p class="page-subtitle">Pantau pendaftaran dan kelola skema sertifikasi dalam satu tempat.</p></div>
+              <button class="primary-button" data-go-view="registration"><span>＋</span> Pendaftaran baru</button>
+            </div>
+            <div class="stats-grid">
+              <article class="stat-card stat-card-primary"><div class="stat-card-top"><span class="stat-icon">♙</span><span class="stat-kicker">TOTAL PESERTA</span><span class="stat-trend positive">↗</span></div><strong id="stat-total">0</strong><p>Semua pendaftar</p><div class="stat-line"><span style="width: 82%"></span></div></article>
+              <article class="stat-card"><div class="stat-card-top"><span class="stat-icon soft-yellow">◷</span><span class="stat-kicker">MENUNGGU</span><span class="stat-trend neutral">•</span></div><strong id="stat-waiting">0</strong><p>Perlu ditinjau</p><div class="stat-line yellow"><span id="stat-waiting-line" style="width: 30%"></span></div></article>
+              <article class="stat-card"><div class="stat-card-top"><span class="stat-icon soft-blue">✓</span><span class="stat-kicker">DIVERIFIKASI</span><span class="stat-trend positive">↗</span></div><strong id="stat-verified">0</strong><p>Data tervalidasi</p><div class="stat-line blue"><span id="stat-verified-line" style="width: 45%"></span></div></article>
+              <article class="stat-card"><div class="stat-card-top"><span class="stat-icon soft-green">▦</span><span class="stat-kicker">SKEMA AKTIF</span><span class="stat-trend positive">↗</span></div><strong id="stat-schemas">0</strong><p>Siap dipilih peserta</p><div class="stat-line green"><span style="width: 70%"></span></div></article>
+            </div>
+            <div class="content-grid overview-grid">
+              <article class="panel panel-wide">
+                <div class="panel-header"><div><p class="eyebrow">DATABASE PESERTA</p><h2>Seluruh data peserta</h2></div><div class="search-box small-search"><span>⌕</span><input id="overview-participant-search" type="search" placeholder="Cari nama peserta…" aria-label="Cari nama peserta" /><button class="text-link" data-go-view="participants">Detail <span>→</span></button></div></div>
+                <div class="table-wrap"><table class="data-table compact-table"><thead><tr><th>PESERTA</th><th>SKEMA</th><th>TANGGAL</th><th>STATUS</th></tr></thead><tbody id="recent-participants-body"><tr><td colspan="4" class="table-loading">Memuat data…</td></tr></tbody></table></div>
+              </article>
+              <article class="panel activity-panel"><div class="panel-header"><div><p class="eyebrow">AKSES CEPAT</p><h2>Yang ingin dilakukan?</h2></div></div><div class="quick-actions"><button class="quick-action" data-go-view="registration"><span class="quick-icon purple">＋</span><span><strong>Daftarkan peserta</strong><small>Input data sertifikasi baru</small></span><b>→</b></button><button class="quick-action" data-go-view="schemas"><span class="quick-icon blue">▦</span><span><strong>Kelola skema</strong><small>Tambah atau ubah skema</small></span><b>→</b></button><button class="quick-action" data-go-view="participants"><span class="quick-icon yellow">⌕</span><span><strong>Cari peserta</strong><small>Temukan data pendaftar</small></span><b>→</b></button></div></article>
+            </div>
+          </section>
+
+          <section class="view" id="view-participants" data-title="Data Peserta">
+            <div class="page-heading"><p class="eyebrow">DATABASE PESERTA</p><h1>Data peserta</h1><p class="page-subtitle">Cari, pantau, dan perbarui status seluruh pendaftar sertifikasi.</p></div>
+            <article class="panel">
+              <div class="panel-toolbar"><div class="search-box"><span>⌕</span><input id="participant-search" type="search" placeholder="Cari nama, nomor pendaftaran, atau email…" /><kbd>⌘ K</kbd></div><div class="toolbar-actions"><select id="participant-status-filter" class="select-control" aria-label="Filter status"><option value="">Semua status</option><option>Menunggu</option><option>Diverifikasi</option><option>Lulus</option><option>Ditolak</option></select><button class="secondary-button" id="refresh-participants">↻ Segarkan</button></div></div>
+              <div class="table-wrap"><table class="data-table"><thead><tr><th>NO. PENDAFTARAN</th><th>NAMA PESERTA</th><th>SKEMA</th><th>KONTAK</th><th>TANGGAL</th><th>STATUS</th><th class="align-right">AKSI</th></tr></thead><tbody id="participants-body"><tr><td colspan="7" class="table-loading">Memuat data…</td></tr></tbody></table></div>
+              <div class="table-footer"><span id="participant-result-count">0 peserta</span><span class="table-foot-note">Data diperbarui otomatis saat halaman dimuat.</span></div>
+            </article>
+          </section>
+
+          <section class="view" id="view-schemas" data-title="Skema Sertifikasi">
+            <div class="page-heading heading-with-action"><div><p class="eyebrow">MASTER DATA</p><h1>Skema sertifikasi</h1><p class="page-subtitle">Kelola daftar kompetensi yang dapat dipilih peserta.</p></div><button class="primary-button" id="add-schema-button"><span>＋</span> Tambah skema</button></div>
+            <div class="schema-summary"><div><span class="summary-icon">▦</span><div><strong id="schema-total-label">0 skema</strong><small>Total skema tersimpan</small></div></div><div><span class="summary-icon active">●</span><div><strong id="schema-active-label">0 aktif</strong><small>Dapat dipilih peserta</small></div></div><div><span class="summary-icon muted">◌</span><div><strong id="schema-inactive-label">0 nonaktif</strong><small>Disembunyikan dari form</small></div></div></div>
+            <article class="panel"><div class="panel-header"><div><p class="eyebrow">DAFTAR SKEMA</p><h2>Semua skema sertifikasi</h2></div><div class="search-box small-search"><span>⌕</span><input id="schema-search" type="search" placeholder="Cari skema…" /></div></div><div class="table-wrap"><table class="data-table"><thead><tr><th>KODE</th><th>NAMA SKEMA</th><th>KATEGORI</th><th>LEVEL</th><th>DURASI</th><th>STATUS</th><th class="align-right">AKSI</th></tr></thead><tbody id="schemas-body"><tr><td colspan="7" class="table-loading">Memuat data…</td></tr></tbody></table></div></article>
+          </section>
+
+          <section class="view" id="view-registration" data-title="Pendaftaran Baru">
+            <div class="page-heading"><p class="eyebrow">FORMULIR PENDAFTARAN</p><h1>Daftarkan peserta</h1><p class="page-subtitle">Masukkan data sesuai identitas resmi peserta.</p></div>
+            <div class="form-layout"><article class="panel form-panel"><div class="panel-header"><div><p class="eyebrow">DATA PRIBADI</p><h2>Informasi peserta</h2></div><span class="required-note"><i>*</i> Wajib diisi</span></div><form id="admin-registration-form" class="registration-form" novalidate><div class="form-grid"><div class="form-group span-2"><label for="admin-name">Nama lengkap <i>*</i></label><input id="admin-name" name="nama_lengkap" type="text" placeholder="Nama sesuai KTP" required /></div><div class="form-group"><label for="admin-nik">NIK <i>*</i></label><input id="admin-nik" name="nik" type="text" inputmode="numeric" placeholder="16 digit NIK" required /></div><div class="form-group"><label for="admin-phone">Nomor telepon <i>*</i></label><input id="admin-phone" name="no_hp" type="tel" placeholder="08xxxxxxxxxx" required /></div><div class="form-group span-2"><label for="admin-email">Email aktif <i>*</i></label><input id="admin-email" name="email" type="email" placeholder="peserta@email.com" required /></div><div class="form-group span-2"><label for="admin-schema">Skema sertifikasi <i>*</i></label><select id="admin-schema" name="skema_id" required><option value="">Pilih skema sertifikasi</option></select></div></div><div id="admin-registration-alert" class="form-alert" role="alert" hidden></div><div class="form-actions"><button class="secondary-button" type="button" data-go-view="overview">Batal</button><button class="primary-button" type="submit" id="admin-registration-submit">Simpan pendaftaran <span>→</span></button></div></form></article><aside class="form-aside"><div class="aside-card accent-card"><span class="aside-number">01</span><h3>Periksa kembali data</h3><p>Pastikan nama, NIK, email, dan nomor telepon sama dengan dokumen peserta.</p></div><div class="aside-card"><span class="aside-icon">✦</span><h3>Alur berikutnya</h3><ol><li>Data tersimpan sebagai <b>Menunggu</b>.</li><li>Admin melakukan verifikasi dokumen.</li><li>Status diperbarui setelah proses selesai.</li></ol></div></aside></div>
+          </section>
+
+          <section class="view" id="view-help" data-title="Pusat Bantuan"><div class="page-heading"><p class="eyebrow">BANTUAN</p><h1>Pusat bantuan</h1><p class="page-subtitle">Panduan singkat untuk menggunakan portal sertifikasi.</p></div><div class="help-grid"><article class="panel help-card"><span class="help-icon">♙</span><h2>Data peserta</h2><p>Gunakan kolom pencarian untuk menemukan peserta berdasarkan nama, nomor pendaftaran, atau email. Status peserta dapat diperbarui langsung dari tabel.</p></article><article class="panel help-card"><span class="help-icon">▦</span><h2>Skema sertifikasi</h2><p>Admin dapat menambah, mengubah, dan menghapus skema. Skema yang sudah dipakai peserta tidak dapat dihapus; nonaktifkan jika sudah tidak dibuka.</p></article><article class="panel help-card"><span class="help-icon">⌁</span><h2>Keamanan akun</h2><p>Jangan membagikan kata sandi admin. Keluar dari portal setelah selesai menggunakan perangkat bersama.</p></article></div></section>
+        </main>
+      </div>
+    </div>
+
+    <div class="modal-backdrop" id="schema-modal" hidden>
+      <div class="modal schema-editor-modal" role="dialog" aria-modal="true" aria-labelledby="schema-modal-title">
+        <div class="modal-header"><div><p class="eyebrow" id="schema-modal-kicker">SKEMA BARU</p><h2 id="schema-modal-title">Tambah skema</h2></div><button class="icon-button modal-close" id="schema-modal-close" aria-label="Tutup">×</button></div>
+        <form id="schema-form" class="registration-form" novalidate>
+          <input type="hidden" id="schema-id" />
+          <div class="form-grid">
+            <div class="form-group"><label for="schema-code">Kode skema <i>*</i></label><input id="schema-code" type="text" placeholder="SKM-XXX-001" required /></div>
+            <div class="form-group"><label for="schema-duration">Durasi (jam) <i>*</i></label><input id="schema-duration" type="number" min="1" max="1000" value="8" required /></div>
+            <div class="form-group span-2"><label for="schema-name">Nama skema <i>*</i></label><input id="schema-name" type="text" placeholder="Nama kompetensi sertifikasi" required /></div>
+            <div class="form-group"><label for="schema-category">Kategori <i>*</i></label><input id="schema-category" type="text" placeholder="Contoh: Teknologi" required /></div>
+            <div class="form-group"><label for="schema-level">Level <i>*</i></label><input id="schema-level" type="text" placeholder="Contoh: Junior" required /></div>
+            <div class="form-group span-2"><label for="schema-description">Deskripsi skema</label><textarea id="schema-description" maxlength="1000" placeholder="Jelaskan kompetensi dan tujuan skema ini."></textarea></div>
+            <div class="form-group span-2"><label for="schema-classroom-url">Link Google Classroom</label><input id="schema-classroom-url" type="url" maxlength="500" placeholder="https://classroom.google.com/c/..." /><small class="field-hint">Wajib diisi sebelum peserta dapat berstatus Diverifikasi.</small></div>
+            <div class="form-group span-2"><label for="schema-execution-details">Detail pelaksanaan</label><textarea id="schema-execution-details" maxlength="2000" placeholder="Contoh: jadwal, lokasi, tahapan, dokumen yang dibawa, dan kontak pendamping."></textarea><small class="field-hint">Informasi ini hanya terlihat oleh peserta yang sudah Diverifikasi atau Lulus.</small></div>
+            <div class="form-group span-2"><label for="schema-status">Status</label><select id="schema-status"><option>Aktif</option><option>Nonaktif</option></select></div>
+          </div>
+          <div id="schema-alert" class="form-alert" role="alert" hidden></div>
+          <div class="form-actions"><button class="secondary-button" type="button" id="schema-cancel">Batal</button><button class="primary-button" type="submit"><span id="schema-submit-label">Simpan skema</span><span>→</span></button></div>
+        </form>
+      </div>
+    </div>
+
+    <script src="/common.js" defer></script>
+    <script src="/admin.js" defer></script>
+  </body>
+</html>

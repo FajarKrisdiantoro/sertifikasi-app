@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Pilih skema dan daftar sertifikasi sebagai peserta." />
+    <title>Dashboard Peserta · Portal Sertifikasi</title>
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body class="user-page">
+    <div id="toast-container" class="toast-container" aria-live="polite"></div>
+    <header class="user-topbar">
+      <a class="brand-lockup" href="/user.html" aria-label="Portal Sertifikasi"><span class="brand-mark">S</span><span>sertifikasi<span class="brand-dot">.</span></span></a>
+      <div class="user-top-actions"><span class="user-role-pill"><span class="role-dot"></span> Area peserta</span><span class="profile-avatar small" id="user-avatar">P</span><span class="topbar-user-name" id="user-top-name">Peserta</span><button class="icon-button logout-icon" id="logout-button" aria-label="Keluar">↪</button></div>
+    </header>
+
+    <main class="user-main">
+      <section class="user-view schema-catalog-view" id="schema-catalog-view">
+        <div class="user-intro catalog-intro"><div><p class="eyebrow">DASHBOARD PESERTA</p><h1>Pilih skema<br /><em>sertifikasi.</em></h1><p class="page-subtitle">Pilih kompetensi yang ingin Anda ikuti. Klik salah satu kartu untuk melihat detail dan memulai pendaftaran.</p></div><div class="intro-stamp"><span class="stamp-icon">✦</span><span><strong id="schema-count-label">0 skema</strong><small>Skema tersedia</small></span></div></div>
+        <div class="catalog-toolbar"><div><p class="eyebrow">PILIHAN SKEMA</p><h2>Skema sertifikasi tersedia</h2></div><div class="catalog-hint"><span class="hint-pulse"></span> Klik kartu untuk melihat deskripsi</div></div>
+        <div class="schema-card-grid" id="user-schema-grid" aria-live="polite"><div class="schema-grid-loading"><span class="loading-orbit"></span><p>Memuat skema sertifikasi…</p></div></div>
+        <div class="schema-grid-empty" id="schema-grid-empty" hidden><span>◌</span><h2>Belum ada skema aktif</h2><p>Silakan kembali lagi atau hubungi administrator sertifikasi.</p></div>
+      </section>
+
+      <section class="user-view registration-view" id="registration-view" hidden>
+        <div class="registration-view-heading"><button class="back-to-schemas" id="back-to-schemas" type="button"><span>←</span> Kembali ke skema</button><div class="registration-context"><p class="eyebrow">PENDAFTARAN SERTIFIKASI</p><h1>Lengkapi data<br /><em>pendaftaran.</em></h1><p class="page-subtitle">Pastikan informasi yang Anda masukkan sesuai dengan dokumen resmi.</p></div><div class="selected-schema-chip" id="selected-schema-chip"><span class="chip-icon">▦</span><span><small>Skema dipilih</small><strong id="selected-schema-name">—</strong></span></div></div>
+        <div class="user-form-layout">
+          <article class="panel user-registration-card"><div class="panel-header"><div><p class="eyebrow">FORMULIR PESERTA</p><h2>Data pendaftaran</h2></div><span class="required-note"><i>*</i> Wajib diisi</span></div><form id="user-registration-form" class="registration-form" novalidate><div class="form-grid"><div class="form-group span-2"><label for="user-name">Nama lengkap <i>*</i></label><input id="user-name" name="nama_lengkap" type="text" placeholder="Masukkan nama sesuai KTP" required /></div><div class="form-group"><label for="user-nik">NIK <i>*</i></label><input id="user-nik" name="nik" type="text" inputmode="numeric" placeholder="16 digit NIK" required /></div><div class="form-group"><label for="user-phone">Nomor telepon <i>*</i></label><input id="user-phone" name="no_hp" type="tel" placeholder="08xxxxxxxxxx" required /></div><div class="form-group span-2"><label for="user-email">Email aktif <i>*</i></label><input id="user-email" name="email" type="email" placeholder="Anda akan menerima informasi di email ini" required /></div><div class="form-group span-2"><label for="user-schema">Skema sertifikasi <i>*</i></label><select id="user-schema" name="skema_id" required><option value="">Memuat daftar skema…</option></select><small class="field-hint">Skema sudah dipilih dari kartu sebelumnya, tetapi masih dapat diubah.</small></div></div><div id="user-registration-alert" class="form-alert" role="alert" hidden></div><div class="form-actions"><button class="secondary-button" type="button" id="back-to-schemas-bottom">Pilih skema lain</button><button class="primary-button primary-button-large" type="submit" id="user-registration-submit">Kirim pendaftaran <span>↗</span></button></div></form></article>
+          <aside class="user-aside"><div class="aside-card accent-card user-guide-card"><span class="aside-number">01</span><h3>Isi data dengan teliti</h3><p>Gunakan nama dan NIK sesuai identitas resmi agar proses verifikasi berjalan lancar.</p></div><div class="aside-card"><div class="step-heading"><span class="aside-icon">⌁</span><h3>Setelah mendaftar</h3></div><div class="mini-steps"><div><span>1</span><p>Admin memeriksa data Anda.</p></div><div><span>2</span><p>Status pendaftaran diperbarui.</p></div><div><span>3</span><p>Informasi lanjutan dikirim melalui email.</p></div></div></div></aside>
+        </div>
+      </section>
+
+      <section class="user-success-panel" id="user-success-panel" hidden><div class="success-icon">✓</div><div><p class="eyebrow">PENDAFTARAN TERKIRIM</p><h2>Terima kasih, data Anda sudah diterima.</h2><p>Simpan nomor pendaftaran berikut untuk keperluan pengecekan:</p><strong class="registration-code" id="success-registration-code">REG-2026-0000</strong></div><button class="secondary-button" id="new-registration-button">Daftar lagi</button></section>
+      <p class="user-footer-note">Butuh bantuan? Hubungi administrator sertifikasi melalui kanal resmi instansi Anda.</p>
+    </main>
+
+    <div class="schema-detail-backdrop" id="schema-detail-modal" hidden>
+      <article class="schema-detail-modal" role="dialog" aria-modal="true" aria-labelledby="detail-schema-title">
+        <button class="schema-detail-close" id="schema-detail-close" type="button" aria-label="Tutup detail">×</button>
+        <div class="schema-detail-hero"><div class="schema-detail-icon" id="detail-schema-icon">▦</div><span class="detail-code" id="detail-schema-code">SKM-000</span></div>
+        <div class="schema-detail-body">
+          <p class="eyebrow" id="detail-modal-kicker">DETAIL SKEMA SERTIFIKASI</p>
+          <h2 id="detail-schema-title">Nama skema</h2>
+          <div class="detail-registration-status" id="detail-registration-status" hidden><span class="status-badge" id="detail-status-badge">Menunggu</span><span><small>Nomor pendaftaran</small><strong id="detail-registration-number">—</strong></span></div>
+          <div class="detail-meta"><span><small>Kategori</small><strong id="detail-schema-category">—</strong></span><span><small>Level</small><strong id="detail-schema-level">—</strong></span><span><small>Durasi</small><strong id="detail-schema-duration">—</strong></span></div>
+          <div class="detail-description-box"><span class="description-mark">“</span><p id="detail-schema-description">Deskripsi skema akan tampil di sini.</p></div>
+          <div class="verified-access" id="verified-access" hidden>
+            <div class="execution-detail-card"><span class="verified-detail-icon">⌁</span><div><small>DETAIL PELAKSANAAN</small><p id="detail-execution">Informasi pelaksanaan belum tersedia.</p></div></div>
+            <div class="classroom-access-card"><div><small>RUANG KELAS DIGITAL</small><strong>Google Classroom</strong><p id="classroom-unavailable" hidden>Link belum ditambahkan oleh admin.</p></div><a class="classroom-button" id="detail-classroom-link" href="https://classroom.google.com/" target="_blank" rel="noopener noreferrer">Buka Classroom <span>↗</span></a></div>
+          </div>
+          <div class="registration-status-note" id="registration-status-note" hidden><strong id="registration-status-title">Pendaftaran sedang diproses</strong><p id="registration-status-copy">Akses pelaksanaan akan tersedia setelah pendaftaran diverifikasi admin.</p></div>
+          <button class="primary-button primary-button-large detail-register-button" id="detail-register-button" type="button">Daftar pada skema ini <span>↗</span></button>
+        </div>
+      </article>
+    </div>
+
+    <script src="/common.js" defer></script>
+    <script src="/user.js" defer></script>
+  </body>
+</html>

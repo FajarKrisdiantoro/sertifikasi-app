@@ -1,0 +1,47 @@
+-- Versi MySQL 8+ untuk kebutuhan deployment XAMPP/LAMP.
+CREATE DATABASE IF NOT EXISTS sertifikasi CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+USE sertifikasi;
+
+CREATE TABLE IF NOT EXISTS users (
+  id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  full_name VARCHAR(120) NOT NULL,
+  email VARCHAR(190) NOT NULL UNIQUE,
+  password_hash VARCHAR(255) NOT NULL,
+  role ENUM('admin','user') NOT NULL DEFAULT 'user',
+  created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB;
+
+CREATE TABLE IF NOT EXISTS skema (
+  id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  kode_skema VARCHAR(30) NOT NULL UNIQUE,
+  nama_skema VARCHAR(180) NOT NULL,
+  kategori VARCHAR(100) NOT NULL,
+  level VARCHAR(60) NOT NULL,
+  durasi_jam SMALLINT UNSIGNED NOT NULL DEFAULT 8,
+  deskripsi TEXT NOT NULL,
+  classroom_url VARCHAR(500) NOT NULL DEFAULT '',
+  detail_pelaksanaan TEXT NOT NULL,
+  status ENUM('Aktif','Nonaktif') NOT NULL DEFAULT 'Aktif',
+  created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB;
+
+CREATE TABLE IF NOT EXISTS peserta (
+  id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  nomor_pendaftaran VARCHAR(40) NOT NULL UNIQUE,
+  nama_lengkap VARCHAR(160) NOT NULL,
+  nik VARCHAR(32) NOT NULL,
+  email VARCHAR(190) NOT NULL,
+  no_hp VARCHAR(30) NOT NULL,
+  skema_id INT UNSIGNED NOT NULL,
+  tanggal_pendaftaran DATE NOT NULL DEFAULT (CURRENT_DATE),
+  status ENUM('Menunggu','Diverifikasi','Lulus','Ditolak') NOT NULL DEFAULT 'Menunggu',
+  user_id INT UNSIGNED NULL,
+  created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  CONSTRAINT fk_peserta_skema FOREIGN KEY (skema_id) REFERENCES skema(id) ON UPDATE CASCADE ON DELETE RESTRICT,
+  CONSTRAINT fk_peserta_user FOREIGN KEY (user_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL,
+  INDEX idx_peserta_nama (nama_lengkap),
+  INDEX idx_peserta_skema (skema_id),
+  INDEX idx_peserta_status (status)
+) ENGINE=InnoDB;

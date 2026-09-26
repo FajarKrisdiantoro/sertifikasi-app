@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Portal Sertifikasi untuk pendaftaran peserta dan pengelolaan skema." />
+    <title>Masuk · Portal Sertifikasi</title>
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body class="auth-page">
+    <main class="auth-layout">
+      <section class="auth-brand-panel">
+        <div class="brand-lockup brand-lockup-light">
+          <span class="brand-mark">S</span>
+          <span>sertifikasi<span class="brand-dot">.</span></span>
+        </div>
+        <div class="brand-message">
+          <p class="eyebrow eyebrow-light">PORTAL SERTIFIKASI</p>
+          <h1>Kelola kompetensi.<br /><em>Bangun kepercayaan.</em></h1>
+          <p>Ruang kerja terpusat untuk pendaftaran peserta dan pengelolaan skema sertifikasi.</p>
+        </div>
+        <div class="brand-footer">
+          <span class="live-indicator"><i></i> Sistem siap digunakan</span>
+          <span>© 2026 Portal Sertifikasi</span>
+        </div>
+      </section>
+
+      <section class="auth-form-panel">
+        <div class="auth-form-wrap">
+          <div class="mobile-brand brand-lockup">
+            <span class="brand-mark">S</span>
+            <span>sertifikasi<span class="brand-dot">.</span></span>
+          </div>
+          <div class="auth-heading">
+            <p class="eyebrow">SELAMAT DATANG KEMBALI</p>
+            <h2>Masuk ke portal</h2>
+            <p>Gunakan akun yang telah terdaftar untuk melanjutkan.</p>
+          </div>
+
+          <form id="login-form" class="stack-form" novalidate>
+            <label class="field-label" for="email">Alamat email</label>
+            <div class="input-with-icon">
+              <span class="input-icon">@</span>
+              <input id="email" name="email" type="email" autocomplete="username" placeholder="nama@email.com" required />
+            </div>
+
+            <div class="field-label-row">
+              <label class="field-label" for="password">Kata sandi</label>
+              <button class="text-button" type="button" id="toggle-password">Tampilkan</button>
+            </div>
+            <div class="input-with-icon">
+              <span class="input-icon lock-icon">⌑</span>
+              <input id="password" name="password" type="password" autocomplete="current-password" placeholder="Masukkan kata sandi" required />
+            </div>
+
+            <p class="signup-prompt">Belum punya akun? <a class="signup-link" href="/signup.html">Sign up!</a></p>
+
+            <div id="login-alert" class="form-alert" role="alert" hidden></div>
+            <button class="primary-button primary-button-large" type="submit" id="login-submit">
+              <span>Masuk ke dashboard</span>
+              <span class="button-arrow">↗</span>
+            </button>
+          </form>
+
+          <div class="demo-access">
+            <div class="demo-access-heading"><span class="sparkle">✦</span> Akun demo tersedia</div>
+            <div class="demo-account-grid">
+              <button type="button" class="demo-account" data-email="admin@sertifikasi.local" data-password="Admin123!">
+                <span class="demo-avatar admin-avatar">A</span>
+                <span><strong>Admin</strong><small>Kelola seluruh data</small></span>
+                <span class="demo-use">Pakai ↗</span>
+              </button>
+              <button type="button" class="demo-account" data-email="user@sertifikasi.local" data-password="User123!">
+                <span class="demo-avatar user-avatar">P</span>
+                <span><strong>Peserta</strong><small>Form pendaftaran</small></span>
+                <span class="demo-use">Pakai ↗</span>
+              </button>
+            </div>
+          </div>
+
+          <p class="auth-note">Dengan masuk, Anda menyetujui ketentuan penggunaan portal.</p>
+        </div>
+      </section>
+    </main>
+    <script src="/login.js" defer></script>
+  </body>
+</html>
